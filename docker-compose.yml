@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: .
+    image: ticket-extractor:latest
+    container_name: ticket-extractor
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
